@@ -1,7 +1,7 @@
 package Main;
 
 import main.java.pl.corpomanager.employeemanager.Employee;
-import pl.corpomanager.databasehandler.EmployeePersist;
+import pl.corpomanager.databasehandler.SaverRemover;
 
 import java.text.ParseException;
 
@@ -10,10 +10,11 @@ import java.text.ParseException;
  */
 public class MainClass {
     public static void main(String[] args) throws ParseException {
-        EmployeePersist employeePersister = new EmployeePersist();
+        SaverRemover employeePersister = new SaverRemover();
 
-
-        employeePersister.saveEmployeeinDatabase(new Employee());
+        Employee employee1 = new Employee();
+        employee1.setFirstName("jan");
+        employeePersister.saveEmployeeinDatabase(employee1);
 
     }
 

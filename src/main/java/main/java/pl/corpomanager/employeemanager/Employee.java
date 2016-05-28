@@ -23,15 +23,34 @@ public class Employee implements Serializable {
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "USER_ID", unique = true, nullable = false, precision = 5, scale = 0)
     private int id;
+
+    @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
+
+    @Column(name = "SECOND_NAME", nullable = false)
     private String surname;
+
+    @Column(name = "BIRTH_DATE", nullable = false)
     private Date birthDate;
+
+    @Column(name = "PESEL", unique = true, nullable = false)
     private String PESEL;
+
+    @Column(name = "PASSWORDS" ,nullable = false)
     private String password;
+
+    @Column(name = "USER_MAIL", unique = true, nullable = false)
     private String mailAddress;
+
+    @Column(name = "PHONE_NUMBER", unique = true, nullable = false)
     private int telNumber;
+
+    @Column(name = "PRIVILEGE", nullable = false)
     private Privilege privilage;
+
+    @Column(name = "POSITION", nullable = false)
     private String post;
+
     private Availability availablility;
 
     @Override
@@ -111,7 +130,7 @@ public class Employee implements Serializable {
     }
 
 
-    @Column(name = "PASSWORDS" ,nullable = false)
+
     public String getPassword() {
         return password;
     }
@@ -122,7 +141,7 @@ public class Employee implements Serializable {
 
 
 
-    @Column(name = "FIRST_NAME", nullable = false)
+
     public String getFirstName() {
         return firstName;
     }
@@ -133,7 +152,7 @@ public class Employee implements Serializable {
     }
 
 
-    @Column(name = "SECOND_NAME", nullable = false)
+
     public String getSurname() {
         return surname;
     }
@@ -143,7 +162,7 @@ public class Employee implements Serializable {
     }
 
 
-    @Column(name = "BIRTH_DATE", nullable = false)
+
     public Date getBirthDate() {
         return birthDate;
     }
@@ -152,7 +171,7 @@ public class Employee implements Serializable {
         this.birthDate = birthDate;
     }
 
-    @Column(name = "PESEL", unique = true, nullable = false)
+
     public String getPESEL() {
         return PESEL;
     }
@@ -161,7 +180,7 @@ public class Employee implements Serializable {
         this.PESEL = PESEL;
     }
 
-    @Column(name = "USER_MAIL", unique = true, nullable = false)
+
     public String getMailAddress() {
         return mailAddress;
     }
@@ -171,7 +190,7 @@ public class Employee implements Serializable {
     }
 
 
-    @Column(name = "PHONE_NUMBER", unique = true, nullable = false)
+
     public int getTelNumber() {
         return telNumber;
     }
@@ -181,7 +200,6 @@ public class Employee implements Serializable {
     }
 
 
-    @Column(name = "PRIVILEGE", unique = true, nullable = false)
     public Privilege getPrivilage() {
         return privilage;
     }
@@ -191,7 +209,6 @@ public class Employee implements Serializable {
     }
 
 
-    @Column(name = "POSITION", unique = true, nullable = false)
     public String getPost() {
         return post;
     }
