@@ -3,35 +3,71 @@ package main.java.pl.corpomanager.employeemanager;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * Created by stycz on 26.05.16.
  * class describes states of any employee
  *
- * @see main.java.pl.corpomanager.employeemanager.EmployeeCreator
+ *
  */
 
 @Entity
 @Table(name = "ListOfEmployees")
-public class Employee {
+public class Employee implements Serializable {
 
-
-    private int Id;
-
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "USER_ID", unique = true, nullable = false, precision = 5, scale = 0)
+    private int id;
     private String firstName;
     private String surname;
-    private String birthDate;
+    private Date birthDate;
     private String PESEL;
-
-
-
     private String password;
     private String mailAddress;
     private int telNumber;
     private Privilege privilage;
     private String post;
     private Availability availablility;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Employee)) return false;
+
+        Employee employee = (Employee) o;
+
+        if (getId() != employee.getId()) return false;
+        if (getTelNumber() != employee.getTelNumber()) return false;
+        if (!getFirstName().equals(employee.getFirstName())) return false;
+        if (!getSurname().equals(employee.getSurname())) return false;
+        if (!getBirthDate().equals(employee.getBirthDate())) return false;
+        if (!getPESEL().equals(employee.getPESEL())) return false;
+        if (!getPassword().equals(employee.getPassword())) return false;
+        if (!getMailAddress().equals(employee.getMailAddress())) return false;
+        if (getPrivilage() != employee.getPrivilage()) return false;
+        return getPost().equals(employee.getPost());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId();
+        result = 31 * result + getFirstName().hashCode();
+        result = 31 * result + getSurname().hashCode();
+        result = 31 * result + getBirthDate().hashCode();
+        result = 31 * result + getPESEL().hashCode();
+        result = 31 * result + getPassword().hashCode();
+        result = 31 * result + getMailAddress().hashCode();
+        result = 31 * result + getTelNumber();
+        result = 31 * result + getPrivilage().hashCode();
+        result = 31 * result + getPost().hashCode();
+        return result;
+    }
 
     @Override
     public String toString() {
@@ -48,11 +84,11 @@ public class Employee {
                 '}';
     }
 
-    public Employee(String firstName, String surname, String birthDate, String id, String mailAddress, int telNumber, Privilege privilage, String post) {
+    public Employee(String firstName, String surname, Date birthDate, String PESEL, String mailAddress, int telNumber, Privilege privilage, String post) {
         this.firstName = firstName;
         this.surname = surname;
         this.birthDate = birthDate;
-        this.PESEL = id;
+        this.PESEL = PESEL;
         this.mailAddress = mailAddress;
         this.telNumber = telNumber;
         this.privilage = privilage;
@@ -65,6 +101,16 @@ public class Employee {
 
     }
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
     @Column(name = "PASSWORDS" ,nullable = false)
     public String getPassword() {
         return password;
@@ -73,16 +119,8 @@ public class Employee {
     public void setPassword(String password) {
         this.password = password;
     }
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "USER_ID")
-    public int getId() {
-        return Id;
-    }
 
-    public void setId(String id) {
-        this.PESEL = id;
-    }
+
 
     @Column(name = "FIRST_NAME", nullable = false)
     public String getFirstName() {
@@ -106,11 +144,11 @@ public class Employee {
 
 
     @Column(name = "BIRTH_DATE", nullable = false)
-    public String getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -119,8 +157,8 @@ public class Employee {
         return PESEL;
     }
 
-    public void setPESEL(int PESEL) {
-        Id = PESEL;
+    public void setPESEL(String PESEL) {
+        this.PESEL = PESEL;
     }
 
     @Column(name = "USER_MAIL", unique = true, nullable = false)
@@ -152,7 +190,7 @@ public class Employee {
         this.privilage = privilage;
     }
 
-    @Id
+
     @Column(name = "POSITION", unique = true, nullable = false)
     public String getPost() {
         return post;
